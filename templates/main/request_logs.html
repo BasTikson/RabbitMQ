@@ -50,6 +50,7 @@
                     <th>Метод</th>
                     <th>IP-адрес</th>
                     <th>User-Agent</th>
+                    <th>Random-message</th>
                     <th>Время</th>
                 </tr>
             </thead>
@@ -60,6 +61,7 @@
                     <td>{{ log.method }}</td>
                     <td>{{ log.ip_address }}</td>
                     <td>{{ log.user_agent }}</td>
+                    <td>{{ log.random_message }}</td>
                     <td>{{ log.timestamp }}</td>
                 </tr>
                 {% endfor %}

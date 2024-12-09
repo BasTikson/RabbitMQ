@@ -11,4 +11,4 @@ class AboutUsSerializer(serializers.ModelSerializer):
 class RequestLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = RequestLog
-        fields = ['url', 'method', 'ip_address', 'user_agent', 'timestamp']
+        fields = ['url', 'method', 'ip_address', 'user_agent', 'random_message', 'timestamp']

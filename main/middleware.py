@@ -1,5 +1,6 @@
 from django.utils.deprecation import MiddlewareMixin
-from tasks.rabbit_mq_tasks import log_request
+# from tasks.rabbit_mq_tasks import log_request
+from main.producer import  RabbitMQProducer
 
 
 class RequestLogMiddleware(MiddlewareMixin):
@@ -8,13 +9,20 @@ class RequestLogMiddleware(MiddlewareMixin):
         self.get_response = get_response
 
     def __call__(self, request):
-        log_request.delay(
-            url=request.path,
-            method=request.method,
-            ip_address=self.get_client_ip(request),
-            user_agent=request.META.get('HTTP_USER_AGENT', '')
-        )
+        print('__call__ вызвали')
 
+        # Формируем сообщение
+        message = {
+            'url': request.path,
+            'method': request.method,
+            'ip_address': self.get_client_ip(request),
+            'user_agent': request.META.get('HTTP_USER_AGENT', '')
+        }
+
+        # Пытаемся отправить
+        RabbitMQProducer().send_message(queue_name='first_queue', message=message)
+
+        # Передаем далее запрос, который нам пришел
         response = self.get_response(request)
         return response
 

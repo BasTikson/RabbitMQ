@@ -28,11 +28,14 @@ x-django-base: &django-base
 
 services:
   db:
-    build:
-      context: .
-      dockerfile: db.Dockerfile
+    image: postgres:13
+    container_name: postgres_13
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - "5433:5432"
 

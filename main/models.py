@@ -15,6 +15,7 @@ class RequestLog(models.Model):
     method = models.CharField(max_length=10)
     ip_address = models.GenericIPAddressField()
     user_agent = models.TextField()
+    random_message = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
